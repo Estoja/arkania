@@ -1,0 +1,88 @@
+// .██████╗.██████╗.██╗██████╗.
+// ██╔════╝.██╔══██╗██║██╔══██╗
+// ██║..███╗██████╔╝██║██║..██║
+// ██║...██║██╔══██╗██║██║..██║
+// ╚██████╔╝██║..██║██║██████╔╝
+// .╚═════╝.╚═╝..╚═╝╚═╝╚═════╝.
+// ............................
+
+@import "../../tokens/layout.scss";
+@import "./mixins.scss";
+
+// TODO: Utilizar functions y maps
+// Lo primero que vamos a agregar es una regla de reinicio global y box-sizing.
+// Esto asegurará que el padding aplicado a nuestros
+// elementos se añada dentro de sus dimensiones calculadas,
+// lo que nos da mucha más libertad para definir anchos de columna.
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  @include border-box;
+}
+// A continuación agregaremos una regla para asegurarse de
+// que las imágenes utilizadas se comporten con fluidez.
+img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding-inline-start: map-get(map-get($breakpoints, gen), padding-container);
+  padding-inline-end: map-get(map-get($breakpoints, gen), padding-container);
+  max-width: 100%;
+}
+// Todos nuestros elementos de fila hacen que contenga
+// las columnas, cerciorándose de que los grupos de columnas se separen correctamente.
+// Añadamos algunas reglas generales de .clearfix a nuestros elementos del contenedor y fila.
+.container,
+.row {
+  @extend %clearfix;
+}
+
+// Este selector dice; Tomar cualquier elemento cuya clase contiene la cadena columna- y aplicar
+// los siguientes estilos. Por lo tanto todos nuestros elementos de la columna flotarán a la izquierda, tendrán un relleno de 1em (esto forma nuestra cuneta y algún espacio vertical) y llenarán el 100% del ancho de la ventana. Por último, la min-height: 1px asegura que la columna se muestre correctamente, incluso si no tiene contenido.
+[class*='col-'] {
+  float: left;
+  min-height: 1px;
+}
+
+@each $name, $map in $breakpoints {
+  @if $name == gen {
+    .container {
+      padding-inline-start: map-get($map, padding-container);
+      padding-inline-end: map-get($map, padding-container);
+      max-width: map-get($map, max-width);
+    }
+    @for $i from 0 through map-get($map, columns)+1  {
+      .col-#{$i} {
+        width: (100% / map-get($map, columns)) * $i;
+        padding: map-get($map, gutter) / 2;
+      }
+      .offset-#{$i} {
+        margin-inline-start: 100% / map-get($map, columns) * $i;
+      }
+    }
+  } @else {
+    @media #{map-get($map, breakpoint-rule)} {
+      .container {
+        padding-inline-start: map-get($map, padding-container);
+        padding-inline-end: map-get($map, padding-container);
+        max-width: map-get($map, max-width);
+      }
+      @for $i from 0 to map-get($map, columns)+1 {
+        .col-#{$name}-#{$i} {
+          width: (100% / map-get($map, columns) ) * $i;
+          padding: map-get($map, gutter) / 2;
+        }
+        .offset-#{$name}-#{$i} {
+          margin-inline-start: 100% / map-get($map, columns) * $i;
+        }
+      }
+    }
+  }
+}

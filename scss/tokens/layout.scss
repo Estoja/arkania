@@ -1,0 +1,53 @@
+// ██╗......█████╗.██╗...██╗.██████╗.██╗...██╗████████╗
+// ██║.....██╔══██╗╚██╗.██╔╝██╔═══██╗██║...██║╚══██╔══╝
+// ██║.....███████║.╚████╔╝.██║...██║██║...██║...██║...
+// ██║.....██╔══██║..╚██╔╝..██║...██║██║...██║...██║...
+// ███████╗██║..██║...██║...╚██████╔╝╚██████╔╝...██║...
+// ╚══════╝╚═╝..╚═╝...╚═╝....╚═════╝..╚═════╝....╚═╝...
+// ....................................................
+
+
+$breakpoints: (
+  gen: (
+    breakpoint-rule: null,
+    padding-container: 24px,
+    gutter: 24px,
+    columns: 12,
+    max-width: none,
+  ),
+  xs: (
+    breakpoint-rule: "only screen",
+    padding-container: 16px,
+    gutter: 8px,
+    columns: 12,
+    max-width: 545px, //breackpoint - gutter*2
+  ),
+  sm: (
+    breakpoint-rule: "only screen and (min-width: 577px)",
+    padding-container: 24px,
+    gutter: 24px,
+    columns: 12,
+    max-width: 975px, //breackpoint - gutter*2
+  ),
+  md: (
+    breakpoint-rule: "only screen and (min-width: 1024px)",
+    padding-container: 24px,
+    gutter: 24px,
+    columns: 12,
+    max-width: 1231px, //breackpoint - gutter*2
+  ),
+  lg: (
+    breakpoint-rule: "only screen and (min-width: 1280px)",
+    padding-container: 24px,
+    gutter: 24px,
+    columns: 12,
+    max-width: 1391px, //breackpoint - gutter*2
+  ),
+  xl: (
+    breakpoint-rule: "only screen and (min-width: 1440px)",
+    padding-container: 24px,
+    gutter: 24px,
+    columns: 12,
+    max-width: none, // sin limite
+  )
+);
